@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Lena",
+      "role": null
+    },
+    {
+      "id": 2,
+      "name": "Dima",
+      "role": null
+    },
+    {
+      "id": 3,
+      "name": "Alex",
+      "role": null
+    },
+    {
+      "id": 4,
+      "name": "Vlad",
+      "role": null
+    },
+    {
+      "id": 5,
+      "name": "Galya",
+      "role": null
+    }
+  ]
+}
