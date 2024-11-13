@@ -5,6 +5,8 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Container } from "@mui/material";
+import Users from "../components/Users";
+import Roles from "../components/Roles";
 
 export default function HomePage() {
   const [value, setValue] = React.useState("1");
@@ -22,8 +24,8 @@ export default function HomePage() {
             <Tab label="Доступные роли" value="2" />
           </TabList>
         </Box>
-        <TabPanel value="1">Пользователи</TabPanel>
-        <TabPanel value="2">Доступные роли</TabPanel>
+        <TabPanel value="1"><Users /></TabPanel>
+        <TabPanel value="2"><Roles/></TabPanel>
       </TabContext>
     </Container>
   );
