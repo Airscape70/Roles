@@ -4,10 +4,12 @@ import {
   type MRT_ColumnDef,
   useMaterialReactTable,
 } from "material-react-table";
-import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import { type Role, fakeRole } from "./makeData";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import BasicModal from "./BasicModal";
+import { TEXT_FIELDS } from "../constants/fieldsConstants";
 
 const Roles = () => {
   const columns = useMemo<MRT_ColumnDef<Role>[]>(
@@ -21,7 +23,6 @@ const Roles = () => {
         accessorKey: "description",
         header: "Описание",
         size: 400,
-        grow: true,
         Cell: ({ row }) => row.original.description.join(", "),
       },
       {
@@ -96,7 +97,10 @@ const Roles = () => {
         width={"100%"}
       >
         <Typography variant="h4">Список ролей</Typography>
-        <Button variant="contained">Добавить роль</Button>
+        <BasicModal 
+        btnTitle="Создать роль" 
+        modalTitle="Создание роли" 
+        formSetting={{ fields: TEXT_FIELDS, onSubmit: (data) => (console.log(data))}}/>
       </Box>
       <MaterialReactTable table={table} />
     </>
