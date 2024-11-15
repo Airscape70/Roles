@@ -2,7 +2,14 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      keepPreviousData: true,
+    }
+  }
+});
+
 
 const App = () => {
   return (

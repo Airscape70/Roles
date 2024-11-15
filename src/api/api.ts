@@ -27,6 +27,12 @@ export const postUser = (user: IUser) => {
     .then((response) => response.data)
     .catch((error) => consoleError(error))
 }
+export const deleteUser = (id: string) => {
+  return instance
+    .delete(`users/${id}`)
+    .then((response) => response.data)
+    .catch((error) => consoleError(error))
+}
 export const getRoles = () => {
   return instance
     .get('roles')

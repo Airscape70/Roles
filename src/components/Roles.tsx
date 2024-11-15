@@ -12,15 +12,10 @@ import { ROLE_FIELDS } from "../constants/fieldsConstants";
 import { IRole } from "../interfaces/IRoles";
 import { useQuery } from "react-query";
 import { getRoles, postRoles } from "../api/api";
+import { useGetRoles } from "../hooks/useGetRoles";
 
 const Roles = () => {
-  const { data: rolesData } = useQuery<IRole[]>({
-    queryKey: ["roles"],
-    queryFn: getRoles,
-    keepPreviousData: true,
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 1000,
-  });
+  const rolesData = useGetRoles();
 
   const columns = useMemo<MRT_ColumnDef<IRole>[]>(
     () => [
@@ -34,12 +29,7 @@ const Roles = () => {
         header: "Описание",
         size: 400,
         Cell: ({ row }) => row.original.description.join(", "),
-      },
-      {
-        accessorKey: "users",
-        header: "Пользователи",
-        Cell: ({ row }) => row.original.users.join(", "),
-      },
+      }
     ],
     []
   );

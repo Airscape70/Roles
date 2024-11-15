@@ -1,7 +1,7 @@
 export interface IOption {
+  id: number | string;
   label: string;
   value: string;
-  id: number;
 }
 
 export interface IField {

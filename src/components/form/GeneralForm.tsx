@@ -5,6 +5,7 @@ import { TextFieldInput } from "./fields/TextFieldInput";
 import { Box, Button } from "@mui/material";
 import { CSSProperties } from "styled-components";
 import { CheckboxGroup } from "./fields/CheckboxGroup";
+import { SelectFieldInput } from "./fields/SelectFieldInput";
 
 export interface IGeneralForm {
   onSubmit: (data: any) => void;
@@ -30,6 +31,9 @@ export const GeneralForm: FC<IGeneralForm> = ({ onSubmit, fields }) => {
 
             case "checkboxes":
               return <CheckboxGroup key={field.name} {...field} />;
+
+            case "select":
+              return <SelectFieldInput key={field.name} {...field} />;
 
             default:
               return null;

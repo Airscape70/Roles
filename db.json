@@ -1,51 +1,19 @@
 {
   "users": [
     {
-      "id": "1",
-      "userName": "Иванов А.А.",
-      "role": "менеджер",
-      "availability": true
-    },
-    {
-      "id": "2",
-      "userName": "Петров П.А.",
-      "role": "разработчик",
-      "availability": true
-    },
-    {
-      "id": "3",
-      "userName": "Соловьев Г.А.",
-      "role": "администратор",
-      "availability": true
-    },
-    {
-      "id": "4",
-      "userName": "Седкова А.К.",
-      "role": "разработчик",
-      "availability": false
-    },
-    {
-      "id": "5",
-      "userName": "Сафронова Б.О.",
-      "role": "администратор",
-      "availability": true
-    },
-    {
-      "id": "6",
-      "userName": "Корнеев Д.Е.",
-      "role": "разработчик",
-      "availability": false
-    },
-    {
-      "id": "7",
+      "id": "e2fe",
       "userName": "Бугаева К.А.",
-      "role": "директор",
-      "availability": true
+      "roleName": "Директор"
     },
     {
-      "id": "b597",
-      "userName": "Добро С.С",
-      "role": "администратор "
+      "id": "bd11",
+      "userName": "Истомин В.А.",
+      "roleName": "Разработчик"
+    },
+    {
+      "id": "369e",
+      "userName": "Будилова К.А.",
+      "roleName": "Менеджер"
     }
   ],
   "roles": [
@@ -55,10 +23,6 @@
       "description": [
         "permission 1",
         "permission 2"
-      ],
-      "users": [
-        "Сафронова Б.О.",
-        "Соловьев Г.А."
       ]
     },
     {
@@ -67,9 +31,6 @@
       "description": [
         "permission 3",
         "permission 2"
-      ],
-      "users": [
-        "Иванов А.А."
       ]
     },
     {
@@ -77,11 +38,6 @@
       "roleName": "Разработчик",
       "description": [
         "permission 4"
-      ],
-      "users": [
-        "Корнеев Д.Е.",
-        "Петров П.А.",
-        "Седкова А.К."
       ]
     },
     {
@@ -92,9 +48,14 @@
         "permission 2",
         "permission 3",
         "permission 4"
-      ],
-      "users": [
-        "Бугаева К.А"
+      ]
+    },
+    {
+      "id": "2bdc",
+      "roleName": "ываываыв",
+      "roleDescription": "аыаыавыва",
+      "rolePermissions": [
+        "Permisson1"
       ]
     }
   ]

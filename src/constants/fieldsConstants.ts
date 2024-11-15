@@ -71,13 +71,15 @@ export const USER_FIELDS: IField[] = [
     type: "text",
   },
   {
-    name: "role",
-    label: "Роль пользователя",
-    type: "text",
-  },
-  {
     name: "availability",
     label: "Доступость",
     type: "checkbox",
   },
 ];
+
+export const SELECT_FIELD: IField = {
+  name: "roleName",
+  label: "Выберите роль",
+  type: "select",
+  options: [],
+};

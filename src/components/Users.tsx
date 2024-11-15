@@ -1,4 +1,4 @@
-import {  useMemo,  } from "react";
+import { useMemo } from "react";
 import {
   MaterialReactTable,
   type MRT_ColumnDef,
@@ -8,20 +8,40 @@ import { Box, Checkbox, IconButton, Tooltip, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BasicModal from "./BasicModal";
-import { USER_FIELDS } from "../constants/fieldsConstants";
+import { SELECT_FIELD, USER_FIELDS } from "../constants/fieldsConstants";
 import { IUser } from "../interfaces/IUser";
-import { getUsers, postUser } from "../api/api";
-import { useQuery } from "react-query";
+import { useGetUsers } from "../hooks/useGetUsers";
+import { useDeleteUser } from "../hooks/useDeleteUser";
+import { postUser } from "../api/api";
+import { useGetRoles } from "../hooks/useGetRoles";
+import { IOption } from "../interfaces/IField";
+import { usePostUser } from "../hooks/usePostUser";
 
 const Users = () => {
+  const usersData = useGetUsers();
+  const deleteUser = useDeleteUser();
+  const postUser = usePostUser();
+  const rolesData = useGetRoles();
 
-  const { data: usersData } = useQuery<IUser[]>({
-    queryKey: ["users"],
-    queryFn: getUsers,
-    keepPreviousData: true,
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 1000,
+  const options = rolesData?.map((role) => {
+    return {
+      id: role.id,
+      label: role.roleName,
+      value: role.roleName,
+    };
   });
+
+  SELECT_FIELD.options = options;
+
+  const FIELDS = USER_FIELDS.concat(SELECT_FIELD);
+
+  const handleDeleteUser = (id: string) => {
+    deleteUser(id);
+  };
+
+  const handlePostUser = (user: IUser) => {
+    postUser(user);
+  };
 
   const columns = useMemo<MRT_ColumnDef<IUser>[]>(
     () => [
@@ -30,7 +50,7 @@ const Users = () => {
         header: "Имя пользователя",
       },
       {
-        accessorKey: "role",
+        accessorKey: "roleName",
         header: "Роль",
       },
       {
@@ -95,7 +115,7 @@ const Users = () => {
             <EditIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Удалить">
+        <Tooltip title="Удалить" onClick={() => handleDeleteUser(row.id)}>
           <IconButton color="error">
             <DeleteIcon />
           </IconButton>
@@ -117,8 +137,8 @@ const Users = () => {
           btnTitle="Создать пользователя"
           modalTitle="Создание пользователя"
           formSetting={{
-            fields: USER_FIELDS,
-            onSubmit: (user) => postUser(user),
+            fields: FIELDS,
+            onSubmit: (user) => handlePostUser(user),
           }}
         />
       </Box>
