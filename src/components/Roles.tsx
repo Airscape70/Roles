@@ -5,14 +5,24 @@ import {
   useMaterialReactTable,
 } from "material-react-table";
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
-import { type Role, fakeRole } from "./makeData";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BasicModal from "./BasicModal";
-import { TEXT_FIELDS } from "../constants/fieldsConstants";
+import { ROLE_FIELDS } from "../constants/fieldsConstants";
+import { IRole } from "../interfaces/IRoles";
+import { useQuery } from "react-query";
+import { getRoles, postRoles } from "../api/api";
 
 const Roles = () => {
-  const columns = useMemo<MRT_ColumnDef<Role>[]>(
+  const { data: rolesData } = useQuery<IRole[]>({
+    queryKey: ["roles"],
+    queryFn: getRoles,
+    keepPreviousData: true,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 1000,
+  });
+
+  const columns = useMemo<MRT_ColumnDef<IRole>[]>(
     () => [
       {
         accessorKey: "roleName",
@@ -36,7 +46,7 @@ const Roles = () => {
 
   const table = useMaterialReactTable({
     columns,
-    data: fakeRole,
+    data: rolesData ?? [],
     enableSelectAll: false,
     positionGlobalFilter: "left",
     initialState: { showGlobalFilter: true },
@@ -97,10 +107,14 @@ const Roles = () => {
         width={"100%"}
       >
         <Typography variant="h4">Список ролей</Typography>
-        <BasicModal 
-        btnTitle="Создать роль" 
-        modalTitle="Создание роли" 
-        formSetting={{ fields: TEXT_FIELDS, onSubmit: (data) => (console.log(data))}}/>
+        <BasicModal
+          btnTitle="Создать роль"
+          modalTitle="Создание роли"
+          formSetting={{
+            fields: ROLE_FIELDS,
+            onSubmit: (role) => postRoles(role),
+          }}
+        />
       </Box>
       <MaterialReactTable table={table} />
     </>

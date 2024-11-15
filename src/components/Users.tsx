@@ -1,38 +1,32 @@
-import { useMemo, useState } from "react";
+import {  useMemo,  } from "react";
 import {
   MaterialReactTable,
-  // createRow,
   type MRT_ColumnDef,
-  type MRT_Row,
-  type MRT_TableOptions,
   useMaterialReactTable,
 } from "material-react-table";
-import {
-  Box,
-  Button,
-  Checkbox,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { type User, fakeData } from "./makeData";
+import { Box, Checkbox, IconButton, Tooltip, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BasicModal from "./BasicModal";
 import { USER_FIELDS } from "../constants/fieldsConstants";
+import { IUser } from "../interfaces/IUser";
+import { getUsers, postUser } from "../api/api";
+import { useQuery } from "react-query";
 
 const Users = () => {
-  const columns = useMemo<MRT_ColumnDef<User>[]>(
+
+  const { data: usersData } = useQuery<IUser[]>({
+    queryKey: ["users"],
+    queryFn: getUsers,
+    keepPreviousData: true,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 1000,
+  });
+
+  const columns = useMemo<MRT_ColumnDef<IUser>[]>(
     () => [
       {
-        accessorKey: "firstName",
+        accessorKey: "userName",
         header: "Имя пользователя",
       },
       {
@@ -58,7 +52,7 @@ const Users = () => {
 
   const table = useMaterialReactTable({
     columns,
-    data: fakeData,
+    data: usersData ?? [],
     enableSelectAll: false,
     positionGlobalFilter: "left",
     initialState: { showGlobalFilter: true },
@@ -124,7 +118,7 @@ const Users = () => {
           modalTitle="Создание пользователя"
           formSetting={{
             fields: USER_FIELDS,
-            onSubmit: (data) => console.log(data),
+            onSubmit: (user) => postUser(user),
           }}
         />
       </Box>

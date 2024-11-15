@@ -1,6 +1,6 @@
 import { IField } from "../interfaces/IField";
 
-export const TEXT_FIELDS: IField[] = [
+export const ROLE_FIELDS: IField[] = [
   {
     name: "roleName",
     label: "Название роли",

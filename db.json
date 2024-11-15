@@ -1,29 +1,101 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Lena",
-      "role": null
+      "id": "1",
+      "userName": "Иванов А.А.",
+      "role": "менеджер",
+      "availability": true
     },
     {
-      "id": 2,
-      "name": "Dima",
-      "role": null
+      "id": "2",
+      "userName": "Петров П.А.",
+      "role": "разработчик",
+      "availability": true
     },
     {
-      "id": 3,
-      "name": "Alex",
-      "role": null
+      "id": "3",
+      "userName": "Соловьев Г.А.",
+      "role": "администратор",
+      "availability": true
     },
     {
-      "id": 4,
-      "name": "Vlad",
-      "role": null
+      "id": "4",
+      "userName": "Седкова А.К.",
+      "role": "разработчик",
+      "availability": false
     },
     {
-      "id": 5,
-      "name": "Galya",
-      "role": null
+      "id": "5",
+      "userName": "Сафронова Б.О.",
+      "role": "администратор",
+      "availability": true
+    },
+    {
+      "id": "6",
+      "userName": "Корнеев Д.Е.",
+      "role": "разработчик",
+      "availability": false
+    },
+    {
+      "id": "7",
+      "userName": "Бугаева К.А.",
+      "role": "директор",
+      "availability": true
+    },
+    {
+      "id": "b597",
+      "userName": "Добро С.С",
+      "role": "администратор "
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "roleName": "Администратор",
+      "description": [
+        "permission 1",
+        "permission 2"
+      ],
+      "users": [
+        "Сафронова Б.О.",
+        "Соловьев Г.А."
+      ]
+    },
+    {
+      "id": "2",
+      "roleName": "Менеджер",
+      "description": [
+        "permission 3",
+        "permission 2"
+      ],
+      "users": [
+        "Иванов А.А."
+      ]
+    },
+    {
+      "id": "3",
+      "roleName": "Разработчик",
+      "description": [
+        "permission 4"
+      ],
+      "users": [
+        "Корнеев Д.Е.",
+        "Петров П.А.",
+        "Седкова А.К."
+      ]
+    },
+    {
+      "id": "4",
+      "roleName": "Директор",
+      "description": [
+        "permission 1",
+        "permission 2",
+        "permission 3",
+        "permission 4"
+      ],
+      "users": [
+        "Бугаева К.А"
+      ]
     }
   ]
 }
