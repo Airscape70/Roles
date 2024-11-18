@@ -8,17 +8,31 @@ import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BasicModal from "./BasicModal";
-import { ROLE_FIELDS } from "../constants/fieldsConstants";
+import { CHECKBOX_FIELD, ROLE_FIELDS } from "../constants/fieldsConstants";
 import { IRole } from "../interfaces/IRoles";
 import { postRole } from "../api/api";
 import { useGetRoles } from "../hooks/useGetRoles";
 import { usePostRole } from "../hooks/usePostRole";
 import { useDeleteRole } from "../hooks/useDeleteRole";
+import { useGetPermissions } from "../hooks/useGetPermissions";
 
 const Roles = () => {
   const rolesData = useGetRoles();
+  const permissions = useGetPermissions()
   const deleteRole = useDeleteRole();
   const postRole = usePostRole();
+
+  const options = permissions?.map((permission) => {
+    return {
+      id: permission.id,
+      label: permission.permissionName,
+      value: permission.value,
+    };
+  });
+
+  CHECKBOX_FIELD.options = options;
+
+  const ROLES = ROLE_FIELDS.concat(CHECKBOX_FIELD);
 
   const columns = useMemo<MRT_ColumnDef<IRole>[]>(
     () => [
@@ -80,10 +94,10 @@ const Roles = () => {
         minHeight: "400px",
       },
     },
-    renderRowActions: ({ row, table }) => (
+    renderRowActions: ({ row,  }) => (
       <Box sx={{ display: "flex" }}>
         <Tooltip title="Изменить">
-          <IconButton onClick={() => table.setEditingRow(row)}>
+          <IconButton >
             <EditIcon />
           </IconButton>
         </Tooltip>
@@ -109,7 +123,7 @@ const Roles = () => {
           btnTitle="Создать роль"
           modalTitle="Создание роли"
           formSetting={{
-            fields: ROLE_FIELDS,
+            fields: ROLES,
             onSubmit: (role) => postRole(role),
           }}
         />

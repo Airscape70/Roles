@@ -2,9 +2,20 @@ import { useMemo } from "react";
 import {
   MaterialReactTable,
   type MRT_ColumnDef,
+  MRT_EditActionButtons,
+  MRT_TableOptions,
   useMaterialReactTable,
 } from "material-react-table";
-import { Box, Checkbox, IconButton, Tooltip, Typography } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BasicModal from "./BasicModal";
@@ -14,12 +25,14 @@ import { useGetUsers } from "../hooks/useGetUsers";
 import { useDeleteUser } from "../hooks/useDeleteUser";
 import { useGetRoles } from "../hooks/useGetRoles";
 import { usePostUser } from "../hooks/usePostUser";
+import { useUpdateUser } from "../hooks/useUpdateUser";
 
 const Users = () => {
   const usersData = useGetUsers();
   const deleteUser = useDeleteUser();
   const postUser = usePostUser();
   const rolesData = useGetRoles();
+  const updateUser = useUpdateUser();
 
   const options = rolesData?.map((role) => {
     return {
@@ -41,8 +54,21 @@ const Users = () => {
     postUser(user);
   };
 
+  const handleUpdateUser: MRT_TableOptions<IUser>['onEditingRowSave'] = async ({
+    values,
+    table,
+  }) => {
+    console.log(values)
+    updateUser(values);
+    table.setEditingRow(null); //exit editing mode
+  }
+
   const columns = useMemo<MRT_ColumnDef<IUser>[]>(
     () => [
+      {
+        accessorKey: "id",
+        header: 'ID',
+      },
       {
         accessorKey: "userName",
         header: "Имя пользователя",
@@ -73,10 +99,10 @@ const Users = () => {
     data: usersData ?? [],
     enableSelectAll: false,
     positionGlobalFilter: "left",
-    initialState: { showGlobalFilter: true },
+    initialState: { showGlobalFilter: true, columnVisibility: { id: false } },
     enableToolbarInternalActions: false,
     createDisplayMode: "row",
-    editDisplayMode: "row",
+    editDisplayMode: "modal",
     positionActionsColumn: "last",
     enableEditing: true,
     enableSorting: false,
@@ -90,7 +116,7 @@ const Users = () => {
     },
     displayColumnDefOptions: {
       "mrt-row-actions": {
-        header: undefined,
+        header: '',
         maxSize: 20,
       },
     },
@@ -105,6 +131,20 @@ const Users = () => {
         minHeight: "500px",
       },
     },
+    onEditingRowSave: handleUpdateUser,
+    renderEditRowDialogContent: ({ table, row, internalEditComponents }) => (
+      <>
+        <DialogTitle variant="h4">Изменить</DialogTitle>
+        <DialogContent
+          sx={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
+        >
+          {internalEditComponents} {/* or render custom edit components here */}
+        </DialogContent>
+        <DialogActions>
+          <MRT_EditActionButtons variant="text" table={table} row={row}/>
+        </DialogActions>
+      </>
+    ),
 
     renderRowActions: ({ row, table }) => (
       <Box sx={{ display: "flex" }}>

@@ -33,6 +33,20 @@ export const deleteUser = (id: string) => {
     .then((response) => response.data)
     .catch((error) => consoleError(error));
 };
+export const updateUser = (user: IUser) => {
+  return instance
+    .patch(`users/${user.id}`, user)
+    .then((response) => response.data)
+    .catch((error) => consoleError(error));
+};
+
+export const getPermissions = () => {
+  return instance
+    .get("permissions")
+    .then((response) => response.data)
+    .catch((error) => consoleError(error));
+};
+
 export const getRoles = () => {
   return instance
     .get("roles")

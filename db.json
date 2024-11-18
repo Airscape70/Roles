@@ -1,26 +1,64 @@
 {
   "users": [
     {
-      "id": "e2fe",
-      "userName": "Бугаева К.А.",
-      "roleName": "Директор"
-    },
-    {
       "id": "c1d9",
       "userName": "Истомин В.А.",
       "roleName": "Разработчик"
+    },
+    {
+      "id": "255a",
+      "userName": "Алексей Б.Р.",
+      "roleName": "Сварщик"
+    }
+  ],
+  "permissions": [
+    {
+      "id": "1",
+      "permissionName": "permission1",
+      "value": "permission1"
+    },
+    {
+      "id": "2",
+      "permissionName": "permission2",
+      "value": "permission2"
+    },
+    {
+      "id": "3",
+      "permissionName": "permission3",
+      "value": "permission3"
+    },
+    {
+      "id": "4",
+      "permissionName": "permission4",
+      "value": "permission4"
+    },
+    {
+      "id": "5",
+      "permissionName": "permission5",
+      "value": "permission5"
+    },
+    {
+      "id": "6",
+      "permissionName": "permission6",
+      "value": "permission6"
+    },
+    {
+      "id": "7",
+      "permissionName": "permission7",
+      "value": "permission7"
+    },
+    {
+      "id": "8",
+      "permissionName": "permission8",
+      "value": "permission8"
+    },
+    {
+      "id": "9",
+      "permissionName": "permission9",
+      "value": "permission9"
     }
   ],
   "roles": [
-    {
-      "id": "1",
-      "roleName": "Администратор",
-      "roleDescription": "dfgdfg",
-      "permissions": [
-        "Permission 1",
-        "Permission 2"
-      ]
-    },
     {
       "id": "2",
       "roleName": "Менеджер",
@@ -47,6 +85,16 @@
         "Permission 2",
         "Permission 3",
         "Permission 4"
+      ]
+    },
+    {
+      "id": "fc22",
+      "roleName": "Сварщик",
+      "roleDescription": "варит",
+      "permissions": [
+        "permission1",
+        "permission5",
+        "permission6"
       ]
     }
   ]

@@ -8,6 +8,7 @@ import { CheckboxGroup } from "./fields/CheckboxGroup";
 import { SelectFieldInput } from "./fields/SelectFieldInput";
 
 export interface IGeneralForm {
+  defaultValues?: IField,
   onSubmit: (data: any) => void;
   fields: IField[];
 }
