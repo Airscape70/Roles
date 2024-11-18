@@ -2,6 +2,7 @@ export interface IOption {
   id: number | string;
   label: string;
   value: string;
+  isChecked?: boolean
 }
 
 export interface IField {
@@ -11,5 +12,4 @@ export interface IField {
   options?: IOption[];
   pattern?: RegExp;
   errorMessage?: string;
-  isLoginField?: boolean;
 }

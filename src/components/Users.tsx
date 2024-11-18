@@ -2,8 +2,6 @@ import { useMemo } from "react";
 import {
   MaterialReactTable,
   type MRT_ColumnDef,
-  MRT_EditActionButtons,
-  MRT_TableOptions,
   useMaterialReactTable,
 } from "material-react-table";
 import {
@@ -54,20 +52,12 @@ const Users = () => {
     postUser(user);
   };
 
-  const handleUpdateUser: MRT_TableOptions<IUser>['onEditingRowSave'] = async ({
-    values,
-    table,
-  }) => {
-    console.log(values)
-    updateUser(values);
-    table.setEditingRow(null); //exit editing mode
-  }
-
   const columns = useMemo<MRT_ColumnDef<IUser>[]>(
     () => [
       {
         accessorKey: "id",
-        header: 'ID',
+        header: "ID",
+        size: 40,
       },
       {
         accessorKey: "userName",
@@ -99,7 +89,7 @@ const Users = () => {
     data: usersData ?? [],
     enableSelectAll: false,
     positionGlobalFilter: "left",
-    initialState: { showGlobalFilter: true, columnVisibility: { id: false } },
+    initialState: { showGlobalFilter: true },
     enableToolbarInternalActions: false,
     createDisplayMode: "row",
     editDisplayMode: "modal",
@@ -116,7 +106,7 @@ const Users = () => {
     },
     displayColumnDefOptions: {
       "mrt-row-actions": {
-        header: '',
+        header: "",
         maxSize: 20,
       },
     },
@@ -131,28 +121,19 @@ const Users = () => {
         minHeight: "500px",
       },
     },
-    onEditingRowSave: handleUpdateUser,
-    renderEditRowDialogContent: ({ table, row, internalEditComponents }) => (
-      <>
-        <DialogTitle variant="h4">Изменить</DialogTitle>
-        <DialogContent
-          sx={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
-        >
-          {internalEditComponents} {/* or render custom edit components here */}
-        </DialogContent>
-        <DialogActions>
-          <MRT_EditActionButtons variant="text" table={table} row={row}/>
-        </DialogActions>
-      </>
-    ),
 
-    renderRowActions: ({ row, table }) => (
+    renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex" }}>
-        <Tooltip title="Изменить">
-          <IconButton onClick={() => table.setEditingRow(row)}>
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
+        <BasicModal
+          modalTitle="Изменение данных"
+          BtnIcon={EditIcon}
+          formSetting={{
+            fields: FIELDS,
+            defaultValues: row.original,
+            onSubmit: updateUser,
+            submitBtnTitle: "Изменить",
+          }}
+        />
         <Tooltip title="Удалить" onClick={() => handleDeleteUser(row.id)}>
           <IconButton color="error">
             <DeleteIcon />
@@ -187,12 +168,3 @@ const Users = () => {
 };
 
 export default Users;
-
-// const validateRequired = (value: string) => !!value.length;
-// const validateEmail = (email: string) =>
-//   !!email.length &&
-//   email
-//     .toLowerCase()
-//     .match(
-//       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-//     );

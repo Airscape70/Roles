@@ -8,7 +8,7 @@
     {
       "id": "255a",
       "userName": "Алексей Б.Р.",
-      "roleName": "Сварщик"
+      "roleName": "Директор"
     }
   ],
   "permissions": [
@@ -60,41 +60,21 @@
   ],
   "roles": [
     {
-      "id": "2",
-      "roleName": "Менеджер",
-      "roleDescription": "dfgdfg",
-      "permissions": [
-        "Permission 3",
-        "Permission 2"
-      ]
-    },
-    {
-      "id": "3",
-      "roleName": "Разработчик",
-      "roleDescription": "dfgdfg",
-      "permissions": [
-        "Permission 4"
-      ]
-    },
-    {
-      "id": "4",
+      "id": "9ded",
       "roleName": "Директор",
-      "roleDescription": "dfgdfg",
+      "roleDescription": "Директ",
       "permissions": [
-        "Permission 1",
-        "Permission 2",
-        "Permission 3",
-        "Permission 4"
+        "permission9"
       ]
     },
     {
-      "id": "fc22",
-      "roleName": "Сварщик",
-      "roleDescription": "варит",
+      "id": "be67",
+      "roleName": "Разработчик",
+      "roleDescription": "разраб",
       "permissions": [
         "permission1",
-        "permission5",
-        "permission6"
+        "permission2",
+        "permission3"
       ]
     }
   ]

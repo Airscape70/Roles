@@ -6,9 +6,12 @@ import { Box, Button } from "@mui/material";
 import { CSSProperties } from "styled-components";
 import { CheckboxGroup } from "./fields/CheckboxGroup";
 import { SelectFieldInput } from "./fields/SelectFieldInput";
+import { IRole } from "../../interfaces/IRoles";
+import { IUser } from "../../interfaces/IUser";
 
 export interface IGeneralForm {
-  defaultValues?: IField,
+  defaultValues?: IUser | IRole,
+  submitBtnTitle?: string,
   onSubmit: (data: any) => void;
   fields: IField[];
 }
@@ -19,9 +22,8 @@ const formStyle: CSSProperties = {
   gap: "10px",
 };
 
-export const GeneralForm: FC<IGeneralForm> = ({ onSubmit, fields }) => {
-  const methods = useForm({ mode: "onChange" });
-
+export const GeneralForm: FC<IGeneralForm> = ({ onSubmit, fields, defaultValues, submitBtnTitle }) => {
+  const methods = useForm({ mode: "onChange", defaultValues: defaultValues });
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} style={formStyle}>
@@ -55,7 +57,7 @@ export const GeneralForm: FC<IGeneralForm> = ({ onSubmit, fields }) => {
             Очистить
           </Button>
           <Button type="submit" variant="contained" color="success">
-            Создать
+            {submitBtnTitle? submitBtnTitle : 'Создать'}
           </Button>
         </Box>
       </form>

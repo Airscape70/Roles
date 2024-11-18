@@ -15,14 +15,17 @@ import { useGetRoles } from "../hooks/useGetRoles";
 import { usePostRole } from "../hooks/usePostRole";
 import { useDeleteRole } from "../hooks/useDeleteRole";
 import { useGetPermissions } from "../hooks/useGetPermissions";
+import { useUpdateRole } from "../hooks/useUpdateRole";
+import { IOption } from "../interfaces/IField";
 
 const Roles = () => {
   const rolesData = useGetRoles();
-  const permissions = useGetPermissions()
+  const permissions = useGetPermissions();
   const deleteRole = useDeleteRole();
   const postRole = usePostRole();
+  const updateRole = useUpdateRole();
 
-  const options = permissions?.map((permission) => {
+  const options: IOption[] | undefined = permissions?.map((permission) => {
     return {
       id: permission.id,
       label: permission.permissionName,
@@ -36,6 +39,11 @@ const Roles = () => {
 
   const columns = useMemo<MRT_ColumnDef<IRole>[]>(
     () => [
+      {
+        accessorKey: "id",
+        header: "ID",
+        size: 40,
+      },
       {
         accessorKey: "roleName",
         header: "Название роли",
@@ -78,8 +86,7 @@ const Roles = () => {
     },
     displayColumnDefOptions: {
       "mrt-row-actions": {
-        header: undefined,
-        grow: false,
+        header: "",
         maxSize: 20,
       },
     },
@@ -94,16 +101,21 @@ const Roles = () => {
         minHeight: "400px",
       },
     },
-    renderRowActions: ({ row,  }) => (
+    renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex" }}>
-        <Tooltip title="Изменить">
-          <IconButton >
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
+        <BasicModal
+          modalTitle="Изменение данных"
+          BtnIcon={EditIcon}
+          formSetting={{
+            fields: ROLES,
+            defaultValues: row.original,
+            onSubmit: updateRole,
+            submitBtnTitle: "Изменить",
+          }}
+        />
         <Tooltip title="Удалить">
-          <IconButton color="error">
-            <DeleteIcon onClick={() => deleteRole(row.id)} />
+          <IconButton color="error" onClick={() => deleteRole(row.id)}>
+            <DeleteIcon />
           </IconButton>
         </Tooltip>
       </Box>
