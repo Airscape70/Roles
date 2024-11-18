@@ -12,9 +12,7 @@ import { SELECT_FIELD, USER_FIELDS } from "../constants/fieldsConstants";
 import { IUser } from "../interfaces/IUser";
 import { useGetUsers } from "../hooks/useGetUsers";
 import { useDeleteUser } from "../hooks/useDeleteUser";
-import { postUser } from "../api/api";
 import { useGetRoles } from "../hooks/useGetRoles";
-import { IOption } from "../interfaces/IField";
 import { usePostUser } from "../hooks/usePostUser";
 
 const Users = () => {

@@ -6,56 +6,47 @@
       "roleName": "Директор"
     },
     {
-      "id": "bd11",
+      "id": "c1d9",
       "userName": "Истомин В.А.",
       "roleName": "Разработчик"
-    },
-    {
-      "id": "369e",
-      "userName": "Будилова К.А.",
-      "roleName": "Менеджер"
     }
   ],
   "roles": [
     {
       "id": "1",
       "roleName": "Администратор",
-      "description": [
-        "permission 1",
-        "permission 2"
+      "roleDescription": "dfgdfg",
+      "permissions": [
+        "Permission 1",
+        "Permission 2"
       ]
     },
     {
       "id": "2",
       "roleName": "Менеджер",
-      "description": [
-        "permission 3",
-        "permission 2"
+      "roleDescription": "dfgdfg",
+      "permissions": [
+        "Permission 3",
+        "Permission 2"
       ]
     },
     {
       "id": "3",
       "roleName": "Разработчик",
-      "description": [
-        "permission 4"
+      "roleDescription": "dfgdfg",
+      "permissions": [
+        "Permission 4"
       ]
     },
     {
       "id": "4",
       "roleName": "Директор",
-      "description": [
-        "permission 1",
-        "permission 2",
-        "permission 3",
-        "permission 4"
-      ]
-    },
-    {
-      "id": "2bdc",
-      "roleName": "ываываыв",
-      "roleDescription": "аыаыавыва",
-      "rolePermissions": [
-        "Permisson1"
+      "roleDescription": "dfgdfg",
+      "permissions": [
+        "Permission 1",
+        "Permission 2",
+        "Permission 3",
+        "Permission 4"
       ]
     }
   ]

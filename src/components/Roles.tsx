@@ -10,26 +10,34 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import BasicModal from "./BasicModal";
 import { ROLE_FIELDS } from "../constants/fieldsConstants";
 import { IRole } from "../interfaces/IRoles";
-import { useQuery } from "react-query";
-import { getRoles, postRoles } from "../api/api";
+import { postRole } from "../api/api";
 import { useGetRoles } from "../hooks/useGetRoles";
+import { usePostRole } from "../hooks/usePostRole";
+import { useDeleteRole } from "../hooks/useDeleteRole";
 
 const Roles = () => {
   const rolesData = useGetRoles();
+  const deleteRole = useDeleteRole();
+  const postRole = usePostRole();
 
   const columns = useMemo<MRT_ColumnDef<IRole>[]>(
     () => [
       {
         accessorKey: "roleName",
         header: "Название роли",
-        size: 200,
+        size: 400,
       },
       {
-        accessorKey: "description",
+        accessorKey: "roleDescription",
         header: "Описание",
         size: 400,
-        Cell: ({ row }) => row.original.description.join(", "),
-      }
+      },
+      {
+        accessorKey: "permissions",
+        header: "Разрешения",
+        size: 400,
+        Cell: ({ row }) => row.original.permissions.join(", "),
+      },
     ],
     []
   );
@@ -81,7 +89,7 @@ const Roles = () => {
         </Tooltip>
         <Tooltip title="Удалить">
           <IconButton color="error">
-            <DeleteIcon />
+            <DeleteIcon onClick={() => deleteRole(row.id)} />
           </IconButton>
         </Tooltip>
       </Box>
@@ -102,7 +110,7 @@ const Roles = () => {
           modalTitle="Создание роли"
           formSetting={{
             fields: ROLE_FIELDS,
-            onSubmit: (role) => postRoles(role),
+            onSubmit: (role) => postRole(role),
           }}
         />
       </Box>

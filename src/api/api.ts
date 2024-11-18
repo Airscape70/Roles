@@ -17,32 +17,37 @@ const consoleError = (error: any) => {
 
 export const getUsers = () => {
   return instance
-    .get('users')
+    .get("users")
     .then((response) => response.data)
-    .catch((error) => consoleError(error))
-}
+    .catch((error) => consoleError(error));
+};
 export const postUser = (user: IUser) => {
   return instance
-    .post('users', user)
+    .post("users", user)
     .then((response) => response.data)
-    .catch((error) => consoleError(error))
-}
+    .catch((error) => consoleError(error));
+};
 export const deleteUser = (id: string) => {
   return instance
     .delete(`users/${id}`)
     .then((response) => response.data)
-    .catch((error) => consoleError(error))
-}
+    .catch((error) => consoleError(error));
+};
 export const getRoles = () => {
   return instance
-    .get('roles')
+    .get("roles")
     .then((response) => response.data)
-    .catch((error) => consoleError(error))
-}
-export const postRoles = (role: IRole) => {
+    .catch((error) => consoleError(error));
+};
+export const postRole = (role: IRole) => {
   return instance
-    .post('roles', role)
+    .post("roles", role)
     .then((response) => response.data)
-    .catch((error) => consoleError(error))
-}
-
+    .catch((error) => consoleError(error));
+};
+export const deleteRole = (id: string) => {
+  return instance
+    .delete(`roles/${id}`)
+    .then((response) => response.data)
+    .catch((error) => consoleError(error));
+};
