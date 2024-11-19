@@ -9,6 +9,13 @@ import { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { IField } from "../../../interfaces/IField";
 
+const formGroupstyle = {
+  display: "flex",
+  width: "100%",
+  alignItems: "space-between",
+  height: "150px",
+};
+
 export const CheckboxGroup: FC<IField> = ({ name, label, options }) => {
   const { register, control } = useFormContext();
   const { ref, ...rest } = register(name);
@@ -21,14 +28,7 @@ export const CheckboxGroup: FC<IField> = ({ name, label, options }) => {
         rules={{ required: true }}
         name={name}
         render={({ field }) => (
-          <FormGroup
-            sx={{
-              display: "flex",
-              width: "100%",
-              alignItems: "space-between",
-              height: "150px",
-            }}
-          >
+          <FormGroup sx={formGroupstyle}>
             {options?.map((opt, index) => (
               <FormControlLabel
                 key={index}
@@ -36,7 +36,9 @@ export const CheckboxGroup: FC<IField> = ({ name, label, options }) => {
                   <Checkbox
                     {...rest}
                     inputRef={ref}
-                    checked={field.value ? field.value.includes(opt.label) : false}
+                    checked={
+                      field.value ? field.value.includes(opt.label) : false
+                    }
                   />
                 }
                 value={opt.value}

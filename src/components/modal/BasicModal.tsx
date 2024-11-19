@@ -2,30 +2,13 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import { GeneralForm, IGeneralForm } from "./form/GeneralForm";
 import { IconButton, Tooltip, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { IBasicModal } from "../../interfaces/IBasicModal";
+import { modalBoxStyle, modalIconStyle } from "./BasicModalStyles";
+import { GeneralForm } from "../form/GeneralForm";
 
-const modalStyle = {
-  position: "absolute",
-  border: "1px solid",
-  borderRadius: "20px",
-  width: "40vw",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  p: 6,
-};
-
-interface IBasicModalProps {
-  btnTitle?: string;
-  BtnIcon?: any;
-  modalTitle: string;
-  formSetting: IGeneralForm;
-}
-
-const BasicModal: React.FC<IBasicModalProps> = ({
+const BasicModal: React.FC<IBasicModal> = ({
   btnTitle,
   BtnIcon,
   modalTitle,
@@ -49,15 +32,8 @@ const BasicModal: React.FC<IBasicModalProps> = ({
         </Tooltip>
       )}
       <Modal open={open} onClose={handleClose}>
-        <Box sx={modalStyle}>
-          <IconButton
-            onClick={handleClose}
-            sx={{
-              position: "absolute",
-              right: "0",
-              top: "0",
-            }}
-          >
+        <Box sx={modalBoxStyle}>
+          <IconButton onClick={handleClose} sx={modalIconStyle}>
             <CloseIcon fontSize="large" color="action" />
           </IconButton>
 
@@ -65,7 +41,7 @@ const BasicModal: React.FC<IBasicModalProps> = ({
             {modalTitle}
           </Typography>
           <Box>
-            <GeneralForm {...formSetting} />
+            <GeneralForm {...formSetting} handleClose={handleClose} />
           </Box>
         </Box>
       </Modal>

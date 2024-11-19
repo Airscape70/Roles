@@ -2,7 +2,6 @@ export interface IOption {
   id: number | string;
   label: string;
   value: string;
-  isChecked?: boolean
 }
 
 export interface IField {

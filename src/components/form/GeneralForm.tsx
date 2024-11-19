@@ -1,32 +1,29 @@
 import { FC } from "react";
-import { IField } from "../../interfaces/IField";
 import { FormProvider, useForm } from "react-hook-form";
 import { TextFieldInput } from "./fields/TextFieldInput";
-import { Box, Button } from "@mui/material";
-import { CSSProperties } from "styled-components";
 import { CheckboxGroup } from "./fields/CheckboxGroup";
 import { SelectFieldInput } from "./fields/SelectFieldInput";
-import { IRole } from "../../interfaces/IRoles";
-import { IUser } from "../../interfaces/IUser";
+import { FormButtonsBox, formStyle } from "./GeneralFormStyles";
+import { ResetButton } from "../common/ResetButton";
+import { SubmitButton } from "../common/SubmitButton";
+import { IGeneralForm } from "../../interfaces/IGeneralForm";
 
-export interface IGeneralForm {
-  defaultValues?: IUser | IRole,
-  submitBtnTitle?: string,
-  onSubmit: (data: any) => void;
-  fields: IField[];
-}
-
-const formStyle: CSSProperties = {
-  display: "flex",
-  flexFlow: "column wrap",
-  gap: "10px",
-};
-
-export const GeneralForm: FC<IGeneralForm> = ({ onSubmit, fields, defaultValues, submitBtnTitle }) => {
+export const GeneralForm: FC<IGeneralForm> = ({
+  onSubmit,
+  fields,
+  defaultValues,
+  submitBtnTitle,
+  handleClose,
+}) => {
   const methods = useForm({ mode: "onChange", defaultValues: defaultValues });
+  const handleSubmit = (data: any) => {
+    onSubmit(data);
+    handleClose!();
+  };
+
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} style={formStyle}>
+      <form onSubmit={methods.handleSubmit(handleSubmit)} style={formStyle}>
         {fields.map((field) => {
           switch (field.type) {
             case "text":
@@ -43,23 +40,10 @@ export const GeneralForm: FC<IGeneralForm> = ({ onSubmit, fields, defaultValues,
           }
         })}
 
-        <Box sx={{
-          display: "flex",
-          gap: "20px",
-          alignSelf: "flex-end"
-        }}>
-          <Button
-            type="reset"
-            variant="contained"
-            color="inherit"
-            onClick={() => methods.reset()}
-          >
-            Очистить
-          </Button>
-          <Button type="submit" variant="contained" color="success">
-            {submitBtnTitle? submitBtnTitle : 'Создать'}
-          </Button>
-        </Box>
+        <FormButtonsBox>
+          <ResetButton onClick={() => methods.reset()} />
+          <SubmitButton submitBtnTitle={submitBtnTitle} />
+        </FormButtonsBox>
       </form>
     </FormProvider>
   );

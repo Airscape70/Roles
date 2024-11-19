@@ -4,19 +4,18 @@ import {
   type MRT_ColumnDef,
   useMaterialReactTable,
 } from "material-react-table";
-import { Box, IconButton, Tooltip, Typography } from "@mui/material";
+import { Box, IconButton, Tooltip } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import BasicModal from "./BasicModal";
 import { CHECKBOX_FIELD, ROLE_FIELDS } from "../constants/fieldsConstants";
 import { IRole } from "../interfaces/IRoles";
-import { postRole } from "../api/api";
 import { useGetRoles } from "../hooks/useGetRoles";
 import { usePostRole } from "../hooks/usePostRole";
 import { useDeleteRole } from "../hooks/useDeleteRole";
 import { useGetPermissions } from "../hooks/useGetPermissions";
 import { useUpdateRole } from "../hooks/useUpdateRole";
-import { IOption } from "../interfaces/IField";
+import BasicModal from "./modal/BasicModal";
+import TableHeader from "./common/TableHeader";
 
 const Roles = () => {
   const rolesData = useGetRoles();
@@ -25,15 +24,13 @@ const Roles = () => {
   const postRole = usePostRole();
   const updateRole = useUpdateRole();
 
-  const options: IOption[] | undefined = permissions?.map((permission) => {
+  CHECKBOX_FIELD.options = permissions?.map((permission) => {
     return {
       id: permission.id,
       label: permission.permissionName,
       value: permission.value,
     };
   });
-
-  CHECKBOX_FIELD.options = options;
 
   const ROLES = ROLE_FIELDS.concat(CHECKBOX_FIELD);
 
@@ -124,22 +121,17 @@ const Roles = () => {
 
   return (
     <>
-      <Box
-        marginBottom={2}
-        display={"inline-flex"}
-        justifyContent={"space-between"}
-        width={"100%"}
-      >
-        <Typography variant="h4">Список ролей</Typography>
-        <BasicModal
-          btnTitle="Создать роль"
-          modalTitle="Создание роли"
-          formSetting={{
+      <TableHeader
+        tabName="Список ролей"
+        modalSettings={{
+          btnTitle: "Создать роль",
+          modalTitle: "Создание роли",
+          formSetting: {
             fields: ROLES,
-            onSubmit: (role) => postRole(role),
-          }}
-        />
-      </Box>
+            onSubmit: (role: IRole) => postRole(role),
+          },
+        }}
+      />
       <MaterialReactTable table={table} />
     </>
   );

@@ -16,7 +16,6 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import BasicModal from "./BasicModal";
 import { SELECT_FIELD, USER_FIELDS } from "../constants/fieldsConstants";
 import { IUser } from "../interfaces/IUser";
 import { useGetUsers } from "../hooks/useGetUsers";
@@ -24,15 +23,18 @@ import { useDeleteUser } from "../hooks/useDeleteUser";
 import { useGetRoles } from "../hooks/useGetRoles";
 import { usePostUser } from "../hooks/usePostUser";
 import { useUpdateUser } from "../hooks/useUpdateUser";
+import BasicModal from "./modal/BasicModal";
+import TableHeader from "./common/TableHeader";
 
 const Users = () => {
   const usersData = useGetUsers();
+  const rolesData = useGetRoles();
+
   const deleteUser = useDeleteUser();
   const postUser = usePostUser();
-  const rolesData = useGetRoles();
   const updateUser = useUpdateUser();
 
-  const options = rolesData?.map((role) => {
+  SELECT_FIELD.options = rolesData?.map((role) => {
     return {
       id: role.id,
       label: role.roleName,
@@ -40,17 +42,7 @@ const Users = () => {
     };
   });
 
-  SELECT_FIELD.options = options;
-
   const FIELDS = USER_FIELDS.concat(SELECT_FIELD);
-
-  const handleDeleteUser = (id: string) => {
-    deleteUser(id);
-  };
-
-  const handlePostUser = (user: IUser) => {
-    postUser(user);
-  };
 
   const columns = useMemo<MRT_ColumnDef<IUser>[]>(
     () => [
@@ -134,7 +126,7 @@ const Users = () => {
             submitBtnTitle: "Изменить",
           }}
         />
-        <Tooltip title="Удалить" onClick={() => handleDeleteUser(row.id)}>
+        <Tooltip title="Удалить" onClick={() => deleteUser(row.id)}>
           <IconButton color="error">
             <DeleteIcon />
           </IconButton>
@@ -145,23 +137,17 @@ const Users = () => {
 
   return (
     <>
-      <Box
-        marginBottom={2}
-        display={"inline-flex"}
-        justifyContent={"space-between"}
-        width={"100%"}
-      >
-        <Typography variant="h4">Список пользователей</Typography>
-        <BasicModal
-          btnTitle="Создать пользователя"
-          modalTitle="Создание пользователя"
-          formSetting={{
+      <TableHeader
+        tabName="Список пользователей"
+        modalSettings={{
+          btnTitle: "Создать пользователя",
+          modalTitle: "Создание пользователя",
+          formSetting: {
             fields: FIELDS,
-            onSubmit: (user) => handlePostUser(user),
-          }}
-        />
-      </Box>
-
+            onSubmit: (user: IUser) => postUser(user),
+          },
+        }}
+      />
       <MaterialReactTable table={table} />
     </>
   );

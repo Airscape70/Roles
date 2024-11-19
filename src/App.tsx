@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
+import Header from "./components/header/Header";
 
 export const queryClient = new QueryClient({
   defaultOptions: {

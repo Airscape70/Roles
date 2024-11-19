@@ -6,8 +6,8 @@
       "roleName": "Разработчик"
     },
     {
-      "id": "255a",
-      "userName": "Алексей Б.Р.",
+      "id": "d535",
+      "userName": "Бугаева К.А.",
       "roleName": "Директор"
     }
   ],
@@ -60,21 +60,32 @@
   ],
   "roles": [
     {
-      "id": "9ded",
-      "roleName": "Директор",
-      "roleDescription": "Директ",
-      "permissions": [
-        "permission9"
-      ]
-    },
-    {
       "id": "be67",
       "roleName": "Разработчик",
       "roleDescription": "разраб",
       "permissions": [
         "permission1",
-        "permission2",
         "permission3"
+      ]
+    },
+    {
+      "id": "e709",
+      "roleName": "Директор",
+      "roleDescription": "что-то",
+      "permissions": [
+        "permission5",
+        "permission7",
+        "permission8",
+        "permission9"
+      ]
+    },
+    {
+      "id": "8d76",
+      "roleName": "Менеджер",
+      "roleDescription": "продажа",
+      "permissions": [
+        "permission2",
+        "permission4"
       ]
     }
   ]

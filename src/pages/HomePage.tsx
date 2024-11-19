@@ -19,7 +19,7 @@ export default function HomePage() {
     <Container maxWidth="xl" sx={{ typography: "body1" }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
+          <TabList onChange={handleChange}>
             <Tab label="Пользователи" value="1" />
             <Tab label="Доступные роли" value="2" />
           </TabList>
