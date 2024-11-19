@@ -62,12 +62,11 @@ const Users = () => {
       {
         accessorKey: "availability",
         header: "Доступность",
-        grow: false,
-        size: 40,
+        size: 20,
         Cell: ({ row }) => (
           <Checkbox
             checked={row.original.availability}
-            sx={{ marginLeft: "2px", padding: "0" }}
+            sx={{ marginLeft:"30px", padding: "0" }}
             disableTouchRipple
           />
         ),
@@ -81,7 +80,7 @@ const Users = () => {
     data: usersData ?? [],
     enableSelectAll: false,
     positionGlobalFilter: "left",
-    initialState: { showGlobalFilter: true },
+    initialState: { showGlobalFilter: true, columnVisibility: { id: false }  },
     enableToolbarInternalActions: false,
     createDisplayMode: "row",
     editDisplayMode: "modal",

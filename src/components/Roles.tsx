@@ -66,7 +66,7 @@ const Roles = () => {
     data: rolesData ?? [],
     enableSelectAll: false,
     positionGlobalFilter: "left",
-    initialState: { showGlobalFilter: true },
+    initialState: { showGlobalFilter: true, columnVisibility: { id: false } },
     enableToolbarInternalActions: false,
     createDisplayMode: "row",
     editDisplayMode: "row",

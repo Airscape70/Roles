@@ -12,6 +12,6 @@ export const modalBoxStyle = {
 
 export const modalIconStyle = {
   position: "absolute",
-  right: "0",
-  top: "0",
+  right: "1rem",
+  top: "0.5rem",
 };

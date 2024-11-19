@@ -7,6 +7,7 @@ import { FormButtonsBox, formStyle } from "./GeneralFormStyles";
 import { ResetButton } from "../common/ResetButton";
 import { SubmitButton } from "../common/SubmitButton";
 import { IGeneralForm } from "../../interfaces/IGeneralForm";
+import { CheckboxFieldInput } from "./fields/CheckboxFieldInput";
 
 export const GeneralForm: FC<IGeneralForm> = ({
   onSubmit,
@@ -28,6 +29,9 @@ export const GeneralForm: FC<IGeneralForm> = ({
           switch (field.type) {
             case "text":
               return <TextFieldInput key={field.name} {...field} />;
+
+            case "checkbox":
+              return <CheckboxFieldInput key={field.name} {...field} />;
 
             case "checkboxes":
               return <CheckboxGroup key={field.name} {...field} />;

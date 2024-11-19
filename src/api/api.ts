@@ -20,65 +20,62 @@ export const getUsers = () => {
   return instance
     .get("users")
     .then((response) => response.data)
-    .catch((error) => consoleError(error));
+    .catch(consoleError);
 };
 
 export const postUser = (user: IUser) => {
   return instance
     .post("users", user)
     .then((response) => response.data)
-    .catch((error) => consoleError(error));
+    .catch(consoleError);
 };
 
 export const deleteUser = (id: string) => {
   return instance
     .delete(`users/${id}`)
     .then((response) => response.data)
-    .catch((error) => consoleError(error));
+    .catch(consoleError);
 };
 
 export const updateUser = (user: IUser) => {
   return instance
     .patch(`users/${user.id}`, user)
     .then((response) => response.data)
-    .catch((error) => consoleError(error));
+    .catch(consoleError);
 };
-
-
-
 
 //=============Roles=============
 export const getPermissions = () => {
   return instance
     .get("permissions")
     .then((response) => response.data)
-    .catch((error) => consoleError(error));
+    .catch(consoleError);
 };
 
 export const getRoles = () => {
   return instance
     .get("roles")
     .then((response) => response.data)
-    .catch((error) => consoleError(error));
+    .catch(consoleError);
 };
 
 export const postRole = (role: IRole) => {
   return instance
     .post("roles", role)
     .then((response) => response.data)
-    .catch((error) => consoleError(error));
+    .catch(consoleError);
 };
 
 export const deleteRole = (id: string) => {
   return instance
     .delete(`roles/${id}`)
     .then((response) => response.data)
-    .catch((error) => consoleError(error));
+    .catch(consoleError);
 };
 
 export const updateRole = (role: IRole) => {
   return instance
     .patch(`roles/${role.id}`, role)
     .then((response) => response.data)
-    .catch((error) => consoleError(error));
+    .catch(consoleError);
 };

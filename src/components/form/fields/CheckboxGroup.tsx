@@ -5,15 +5,16 @@ import {
   FormGroup,
   Typography,
 } from "@mui/material";
-import { FC } from "react";
+import { CSSProperties, FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { IField } from "../../../interfaces/IField";
 
-const formGroupstyle = {
+const formGroupstyle: CSSProperties = {
   display: "flex",
+  alignItems: "center",
   width: "100%",
-  alignItems: "space-between",
   height: "150px",
+  padding: "10px"
 };
 
 export const CheckboxGroup: FC<IField> = ({ name, label, options }) => {

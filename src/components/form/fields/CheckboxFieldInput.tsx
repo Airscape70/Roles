@@ -1,23 +1,29 @@
 import * as React from "react";
 import { IField } from "../../../interfaces/IField";
 import { Controller, useFormContext } from "react-hook-form";
-import { Checkbox } from "@mui/material";
+import { Checkbox, Typography } from "@mui/material";
 
 export const CheckboxFieldInput: React.FC<IField> = ({ name, label, type }) => {
-  const { control } = useFormContext();
+  const { register, control } = useFormContext();
+  const { ref, ...rest } = register(name);
 
   return (
     <Controller
       control={control}
       name={name}
-      rules={{ required: true }}
       render={({ field }) => (
         <>
-          <Checkbox
-            title={label}
-            onChange={(e) => field.onChange(e)}
-            value={field.value !== undefined ? field.value : ""}
-          />
+          <Typography variant="h6" component={"span"}>
+            {label}
+            <Checkbox
+              {...rest}
+              inputRef={ref}
+              checked={field.value}
+              title={label}
+              onChange={(e) => field.onChange(e)}
+              value={field.value !== undefined ? field.value : ""}
+            />
+          </Typography>
         </>
       )}
     />

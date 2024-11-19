@@ -3,12 +3,14 @@
     {
       "id": "c1d9",
       "userName": "Истомин В.А.",
-      "roleName": "Разработчик"
+      "roleName": "Разработчик",
+      "availability": false
     },
     {
       "id": "d535",
       "userName": "Бугаева К.А.",
-      "roleName": "Директор"
+      "roleName": "Директор",
+      "availability": "true"
     }
   ],
   "permissions": [
