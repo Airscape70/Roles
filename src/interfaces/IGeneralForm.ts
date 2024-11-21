@@ -1,6 +1,5 @@
 import { IField } from "./IField";
 
-
 export interface IGeneralForm {
   validate?: any,
   defaultValues?: any,

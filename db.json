@@ -29,6 +29,12 @@
       "userName": "Алин А.Е.",
       "userRole": "Администратор",
       "availability": false
+    },
+    {
+      "id": "fbe3",
+      "userName": "Истомин В.Р.",
+      "userRole": "Администратор",
+      "availability": "true"
     }
   ],
   "permissions": [
