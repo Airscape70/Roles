@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { SELECT_FIELD, USER_FIELDS } from "../constants/fieldsConstants";
 import { IUser } from "../interfaces/IUser";
 import { useGetUsers } from "../hooks/useGetUsers";
 import { useDeleteUser } from "../hooks/useDeleteUser";
@@ -22,6 +21,7 @@ import { useUpdateUser } from "../hooks/useUpdateUser";
 import BasicModal from "./modal/BasicModal";
 import TableHeader from "./common/TableHeader";
 import * as yup from "yup";
+import { AVAILABILITY_FIELD, SELECT_ROLE_FIELD, USER_FIELD } from "../constants/fieldsConstants";
 
 const schema = yup
   .object()
@@ -44,7 +44,7 @@ const Users = () => {
   const postUser = usePostUser();
   const updateUser = useUpdateUser();
 
-  SELECT_FIELD.options = rolesData?.map((role) => {
+  SELECT_ROLE_FIELD.options = rolesData?.map((role) => {
     return {
       id: role.id,
       label: role.roleName,
@@ -56,7 +56,7 @@ const Users = () => {
     deleteUser(userId);
   }, [deleteUser]);
 
-  const FIELDS = USER_FIELDS.concat(SELECT_FIELD);
+  const FIELDS = [USER_FIELD, SELECT_ROLE_FIELD, AVAILABILITY_FIELD];
 
   const columns = useMemo<MRT_ColumnDef<IUser>[]>(
     () => [

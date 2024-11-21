@@ -7,7 +7,6 @@ import {
 import { Box, IconButton, Tooltip } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { CHECKBOX_FIELD, ROLE_FIELDS } from "../constants/fieldsConstants";
 import { IRole } from "../interfaces/IRoles";
 import { useGetRoles } from "../hooks/useGetRoles";
 import { usePostRole } from "../hooks/usePostRole";
@@ -17,6 +16,8 @@ import { useUpdateRole } from "../hooks/useUpdateRole";
 import BasicModal from "./modal/BasicModal";
 import TableHeader from "./common/TableHeader";
 import * as yup from "yup";
+import { PERMISSIONS_FIELD, ROLE_FIELDS } from "../constants/fieldsConstants";
+import { useGetUsers } from "../hooks/useGetUsers";
 
 const schema = yup
   .object()
@@ -31,30 +32,27 @@ const schema = yup
       .required("Введите описание роли")
       .min(4, "Минимум 4 буквы")
       .matches(/^[а-яА-Я]*$/, "Только буквы кириллицы"),
-      permissions: yup
-      .array()
-      .required()
+    permissions: yup.array().required(),
   })
   .required();
 
 const Roles = () => {
   const rolesData = useGetRoles();
+  const usersData = useGetUsers();
   const permissions = useGetPermissions();
 
   const deleteRole = useDeleteRole();
   const postRole = usePostRole();
   const updateRole = useUpdateRole();
 
-
-  CHECKBOX_FIELD.options = permissions?.map((permission) => {
+  PERMISSIONS_FIELD.options = permissions?.map((permission) => {
     return {
       id: permission.id,
       label: permission.permissionName,
       value: permission.value,
     };
   });
-
-  const ROLES = ROLE_FIELDS.concat(CHECKBOX_FIELD);
+  const ROLES = ROLE_FIELDS.concat(PERMISSIONS_FIELD);
 
   const columns = useMemo<MRT_ColumnDef<IRole>[]>(
     () => [
@@ -66,12 +64,12 @@ const Roles = () => {
       {
         accessorKey: "roleName",
         header: "Название роли",
-        size: 400,
+        size: 200,
       },
       {
         accessorKey: "roleDescription",
         header: "Описание",
-        size: 400,
+        size: 300,
       },
       {
         accessorKey: "permissions",
@@ -79,8 +77,19 @@ const Roles = () => {
         size: 400,
         Cell: ({ row }) => row.original.permissions.join(", "),
       },
+      {
+        accessorKey: "users",
+        header: "Пользователи",
+        size: 400,
+        Cell: ({ row }) => {
+          const res = usersData?.filter((user) => user.userRole === row.original.roleName)
+            .map((user) => user.userName);
+
+          return res?.join(", ");
+        },
+      },
     ],
-    []
+    [usersData]
   );
 
   const table = useMaterialReactTable({

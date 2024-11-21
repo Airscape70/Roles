@@ -4,12 +4,6 @@
       "id": "d8e5",
       "userName": "Истомин В.А.",
       "availability": "true",
-      "userRole": "Менеджер"
-    },
-    {
-      "id": "0544",
-      "userName": "Истомин В.Н.",
-      "availability": "true",
       "userRole": "Разработчик"
     }
   ],
@@ -66,6 +60,7 @@
       "roleName": "Разработчик",
       "roleDescription": "разраб",
       "permissions": [
+        "permission4",
         "permission5",
         "permission8"
       ]
