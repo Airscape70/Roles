@@ -5,6 +5,30 @@
       "userName": "Истомин В.А.",
       "availability": "true",
       "userRole": "Разработчик"
+    },
+    {
+      "id": "1fed",
+      "userName": "Матвеев К.К.",
+      "userRole": "Менеджер",
+      "availability": "true"
+    },
+    {
+      "id": "4394",
+      "userName": "Бугаева К.А.",
+      "userRole": "Директор",
+      "availability": "true"
+    },
+    {
+      "id": "f939",
+      "userName": "Морозов Д.Е.",
+      "userRole": "Разработчик",
+      "availability": false
+    },
+    {
+      "id": "d584",
+      "userName": "Алин А.Е.",
+      "userRole": "Администратор",
+      "availability": false
     }
   ],
   "permissions": [
@@ -81,9 +105,7 @@
       "roleName": "Менеджер",
       "roleDescription": "продажа",
       "permissions": [
-        "permission2",
-        "permission4",
-        "permission5"
+        "permission1"
       ]
     },
     {
@@ -92,6 +114,7 @@
       "roleDescription": "вчпавапавп",
       "permissions": [
         "permission1",
+        "permission2",
         "permission5"
       ]
     }

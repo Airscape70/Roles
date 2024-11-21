@@ -6,7 +6,7 @@ import { TextField } from "@mui/material";
 
 export const TextFieldInput: React.FC<IField> = ({ name, label, type, placeholder }) => {
   const { control, formState: {errors}, register } = useFormContext();
-console.log(errors)
+  
   return (
     <Controller
       control={control}

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import {
   MaterialReactTable,
   type MRT_ColumnDef,
@@ -7,7 +7,6 @@ import {
 import { Box, IconButton, Tooltip } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { IRole } from "../interfaces/IRoles";
 import { useGetRoles } from "../hooks/useGetRoles";
 import { usePostRole } from "../hooks/usePostRole";
 import { useDeleteRole } from "../hooks/useDeleteRole";
@@ -18,6 +17,7 @@ import TableHeader from "./common/TableHeader";
 import * as yup from "yup";
 import { PERMISSIONS_FIELD, ROLE_FIELDS } from "../constants/fieldsConstants";
 import { useGetUsers } from "../hooks/useGetUsers";
+import { IRole } from "../interfaces/IRole";
 
 const schema = yup
   .object()
@@ -40,7 +40,6 @@ const Roles = () => {
   const rolesData = useGetRoles();
   const usersData = useGetUsers();
   const permissions = useGetPermissions();
-
   const deleteRole = useDeleteRole();
   const postRole = usePostRole();
   const updateRole = useUpdateRole();
@@ -52,7 +51,12 @@ const Roles = () => {
       value: permission.value,
     };
   });
+
   const ROLES = ROLE_FIELDS.concat(PERMISSIONS_FIELD);
+  
+  const handleDeleteUser = useCallback((roleId: string) => {
+    deleteRole(roleId);
+  }, [deleteRole]);
 
   const columns = useMemo<MRT_ColumnDef<IRole>[]>(
     () => [
@@ -143,7 +147,7 @@ const Roles = () => {
           }}
         />
         <Tooltip title="Удалить">
-          <IconButton color="error" onClick={() => deleteRole(row.id)}>
+          <IconButton color="error" onClick={() => handleDeleteUser(row.id)}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>

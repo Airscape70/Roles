@@ -14,13 +14,6 @@ export const ROLE_FIELDS: IField[] = [
   }
 ];
 
-// export const USERS_FIELD: IField = {
-//   name: "users",
-//   label: "Пользователи",
-//   type: "text",
-//   options: [],
-// };
-
 export const USER_FIELD: IField = {
     name: "userName",
     label: "Имя пользователя",

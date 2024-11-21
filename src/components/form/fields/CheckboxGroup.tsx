@@ -18,7 +18,7 @@ const formGroupstyle: CSSProperties = {
 };
 
 export const CheckboxGroup: FC<IField> = ({ name, label, options }) => {
-  const { register, control, formState: {errors} } = useFormContext();
+  const { register, control } = useFormContext();
   const { ref, ...rest } = register(name);
 
   return (

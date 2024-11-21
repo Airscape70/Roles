@@ -3,7 +3,7 @@ import { IField } from "../../../interfaces/IField";
 import { Controller, useFormContext } from "react-hook-form";
 import { Checkbox, Typography } from "@mui/material";
 
-export const CheckboxFieldInput: React.FC<IField> = ({ name, label, type }) => {
+export const CheckboxFieldInput: React.FC<IField> = ({ name, label }) => {
   const { register, control } = useFormContext();
   const { ref, ...rest } = register(name);
 

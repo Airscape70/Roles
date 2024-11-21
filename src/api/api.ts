@@ -1,6 +1,6 @@
 import axios from "axios";
 import { IUser } from "../interfaces/IUser";
-import { IRole } from "../interfaces/IRoles";
+import { IRole } from "../interfaces/IRole";
 
 const instance = axios.create({
   baseURL: "http://localhost:3001/",
@@ -16,6 +16,7 @@ const consoleError = (error: any) => {
 };
 
 //=============USERS=============
+
 export const getUsers = () => {
   return instance
     .get("users")
@@ -45,37 +46,38 @@ export const updateUser = (user: IUser) => {
 };
 
 //=============Roles=============
-export const getPermissions = () => {
-  return instance
-    .get("permissions")
-    .then((response) => response.data)
-    .catch(consoleError);
-};
 
 export const getRoles = () => {
   return instance
-    .get("roles")
-    .then((response) => response.data)
-    .catch(consoleError);
+  .get("roles")
+  .then((response) => response.data)
+  .catch(consoleError);
 };
 
 export const postRole = (role: IRole) => {
   return instance
-    .post("roles", role)
-    .then((response) => response.data)
-    .catch(consoleError);
+  .post("roles", role)
+  .then((response) => response.data)
+  .catch(consoleError);
 };
 
 export const deleteRole = (id: string) => {
   return instance
-    .delete(`roles/${id}`)
-    .then((response) => response.data)
-    .catch(consoleError);
+  .delete(`roles/${id}`)
+  .then((response) => response.data)
+  .catch(consoleError);
 };
 
 export const updateRole = (role: IRole) => {
   return instance
-    .patch(`roles/${role.id}`, role)
+  .patch(`roles/${role.id}`, role)
+  .then((response) => response.data)
+  .catch(consoleError);
+};
+
+export const getPermissions = () => {
+  return instance
+    .get("permissions")
     .then((response) => response.data)
     .catch(consoleError);
 };

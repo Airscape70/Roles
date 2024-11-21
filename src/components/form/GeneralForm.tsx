@@ -10,7 +10,6 @@ import { IGeneralForm } from "../../interfaces/IGeneralForm";
 import { CheckboxFieldInput } from "./fields/CheckboxFieldInput";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-
 export const GeneralForm: FC<IGeneralForm> = ({
   onSubmit,
   validate,
