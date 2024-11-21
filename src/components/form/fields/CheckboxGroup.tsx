@@ -18,7 +18,7 @@ const formGroupstyle: CSSProperties = {
 };
 
 export const CheckboxGroup: FC<IField> = ({ name, label, options }) => {
-  const { register, control } = useFormContext();
+  const { register, control, formState: {errors} } = useFormContext();
   const { ref, ...rest } = register(name);
 
   return (
@@ -26,7 +26,6 @@ export const CheckboxGroup: FC<IField> = ({ name, label, options }) => {
       <Typography variant="h5"> {label} </Typography>
       <Controller
         control={control}
-        rules={{ required: true }}
         name={name}
         render={({ field }) => (
           <FormGroup sx={formGroupstyle}>
@@ -46,6 +45,7 @@ export const CheckboxGroup: FC<IField> = ({ name, label, options }) => {
                 label={opt.label}
               />
             ))}
+            
           </FormGroup>
         )}
       />

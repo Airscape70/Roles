@@ -1,6 +1,6 @@
 export interface IUser {
   id: string;
   userName: string;
-  roleName: string;
+  userRole: string;
   availability: boolean;
 }

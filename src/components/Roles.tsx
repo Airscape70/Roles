@@ -16,13 +16,35 @@ import { useGetPermissions } from "../hooks/useGetPermissions";
 import { useUpdateRole } from "../hooks/useUpdateRole";
 import BasicModal from "./modal/BasicModal";
 import TableHeader from "./common/TableHeader";
+import * as yup from "yup";
+
+const schema = yup
+  .object()
+  .shape({
+    roleName: yup
+      .string()
+      .required("Введите название роли")
+      .min(4, "Минимум 4 буквы")
+      .matches(/^[а-яА-Я]*$/, "Только буквы кириллицы"),
+    roleDescription: yup
+      .string()
+      .required("Введите описание роли")
+      .min(4, "Минимум 4 буквы")
+      .matches(/^[а-яА-Я]*$/, "Только буквы кириллицы"),
+      permissions: yup
+      .array()
+      .required()
+  })
+  .required();
 
 const Roles = () => {
   const rolesData = useGetRoles();
   const permissions = useGetPermissions();
+
   const deleteRole = useDeleteRole();
   const postRole = usePostRole();
   const updateRole = useUpdateRole();
+
 
   CHECKBOX_FIELD.options = permissions?.map((permission) => {
     return {
@@ -104,6 +126,7 @@ const Roles = () => {
           modalTitle="Изменение данных"
           BtnIcon={EditIcon}
           formSetting={{
+            validate: schema,
             fields: ROLES,
             defaultValues: row.original,
             onSubmit: updateRole,
@@ -127,6 +150,7 @@ const Roles = () => {
           btnTitle: "Создать роль",
           modalTitle: "Создание роли",
           formSetting: {
+            validate: schema,
             fields: ROLES,
             onSubmit: (role: IRole) => postRole(role),
           },

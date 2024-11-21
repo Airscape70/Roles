@@ -18,7 +18,7 @@ export const CheckboxFieldInput: React.FC<IField> = ({ name, label, type }) => {
             <Checkbox
               {...rest}
               inputRef={ref}
-              checked={field.value}
+              checked={!!field.value}
               title={label}
               onChange={(e) => field.onChange(e)}
               value={field.value !== undefined ? field.value : ""}

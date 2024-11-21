@@ -9,7 +9,13 @@ import Users from "../components/Users";
 import Roles from "../components/Roles";
 
 export default function HomePage() {
-  const [value, setValue] = React.useState("1");
+  const [value, setValue] = React.useState<string>(() => {
+    return localStorage.getItem("tabValue") || "Пользователи";
+  });
+
+  React.useEffect(() => {
+    localStorage.setItem("tabValue", value);
+  }, [value]); 
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -20,12 +26,12 @@ export default function HomePage() {
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange}>
-            <Tab label="Пользователи" value="1" />
-            <Tab label="Доступные роли" value="2" />
+            <Tab label="Пользователи" value="Пользователи" />
+            <Tab label="Доступные роли" value="Роли" />
           </TabList>
         </Box>
-        <TabPanel value="1"><Users /></TabPanel>
-        <TabPanel value="2"><Roles/></TabPanel>
+        <TabPanel value="Пользователи"><Users /></TabPanel>
+        <TabPanel value="Роли"><Roles/></TabPanel>
       </TabContext>
     </Container>
   );

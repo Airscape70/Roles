@@ -1,16 +1,16 @@
 {
   "users": [
     {
-      "id": "c1d9",
+      "id": "d8e5",
       "userName": "Истомин В.А.",
-      "roleName": "Разработчик",
-      "availability": false
+      "availability": "true",
+      "userRole": "Менеджер"
     },
     {
-      "id": "d535",
-      "userName": "Бугаева К.А.",
-      "roleName": "Директор",
-      "availability": "true"
+      "id": "0544",
+      "userName": "Истомин В.Н.",
+      "availability": "true",
+      "userRole": "Разработчик"
     }
   ],
   "permissions": [
@@ -66,8 +66,8 @@
       "roleName": "Разработчик",
       "roleDescription": "разраб",
       "permissions": [
-        "permission1",
-        "permission3"
+        "permission5",
+        "permission8"
       ]
     },
     {
@@ -87,7 +87,17 @@
       "roleDescription": "продажа",
       "permissions": [
         "permission2",
-        "permission4"
+        "permission4",
+        "permission5"
+      ]
+    },
+    {
+      "id": "3e60",
+      "roleName": "Администратор",
+      "roleDescription": "вчпавапавп",
+      "permissions": [
+        "permission1",
+        "permission5"
       ]
     }
   ]

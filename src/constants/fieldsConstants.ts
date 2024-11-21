@@ -5,6 +5,7 @@ export const ROLE_FIELDS: IField[] = [
     name: "roleName",
     label: "Название роли",
     type: "text",
+    placeholder: "Директор",
   },
   {
     name: "roleDescription",
@@ -18,6 +19,7 @@ export const USER_FIELDS: IField[] = [
     name: "userName",
     label: "Имя пользователя",
     type: "text",
+    placeholder: "Иванов И.И.",
   },
   {
     name: "availability",
@@ -27,7 +29,7 @@ export const USER_FIELDS: IField[] = [
 ];
 
 export const SELECT_FIELD: IField = {
-  name: "roleName",
+  name: "userRole",
   label: "Выберите роль",
   type: "select",
   options: [],

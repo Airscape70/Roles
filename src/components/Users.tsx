@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import {
   MaterialReactTable,
   type MRT_ColumnDef,
@@ -7,12 +7,8 @@ import {
 import {
   Box,
   Checkbox,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   IconButton,
   Tooltip,
-  Typography,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -25,11 +21,25 @@ import { usePostUser } from "../hooks/usePostUser";
 import { useUpdateUser } from "../hooks/useUpdateUser";
 import BasicModal from "./modal/BasicModal";
 import TableHeader from "./common/TableHeader";
+import * as yup from "yup";
+
+const schema = yup
+  .object()
+  .shape({
+    userName: yup
+      .string()
+      .required("Введите инициалы пользователя")
+      .min(4, "Минимум 4 буквы")
+      .matches(/^[А-ЯЁа-яё]+ [А-ЯЁ]\.[А-ЯЁ]\.$/, "Некорректно указаны инициалы"),
+    userRole: yup
+      .string()
+      .required("Выберите роль")
+  })
+  .required();
 
 const Users = () => {
   const usersData = useGetUsers();
   const rolesData = useGetRoles();
-
   const deleteUser = useDeleteUser();
   const postUser = usePostUser();
   const updateUser = useUpdateUser();
@@ -41,6 +51,10 @@ const Users = () => {
       value: role.roleName,
     };
   });
+
+  const handleDeleteUser = useCallback((userId: string) => {
+    deleteUser(userId);
+  }, [deleteUser]);
 
   const FIELDS = USER_FIELDS.concat(SELECT_FIELD);
 
@@ -56,7 +70,7 @@ const Users = () => {
         header: "Имя пользователя",
       },
       {
-        accessorKey: "roleName",
+        accessorKey: "userRole",
         header: "Роль",
       },
       {
@@ -65,7 +79,7 @@ const Users = () => {
         size: 20,
         Cell: ({ row }) => (
           <Checkbox
-            checked={row.original.availability}
+            checked={!!row.original.availability}
             sx={{ marginLeft:"30px", padding: "0" }}
             disableTouchRipple
           />
@@ -109,7 +123,7 @@ const Users = () => {
 
     muiTableContainerProps: {
       sx: {
-        minHeight: "500px",
+        minHeight: "400px",
       },
     },
 
@@ -119,13 +133,14 @@ const Users = () => {
           modalTitle="Изменение данных"
           BtnIcon={EditIcon}
           formSetting={{
+            validate: schema,
             fields: FIELDS,
             defaultValues: row.original,
             onSubmit: updateUser,
             submitBtnTitle: "Изменить",
           }}
         />
-        <Tooltip title="Удалить" onClick={() => deleteUser(row.id)}>
+        <Tooltip title="Удалить" onClick={() => handleDeleteUser(row.id)}>
           <IconButton color="error">
             <DeleteIcon />
           </IconButton>
@@ -142,6 +157,7 @@ const Users = () => {
           btnTitle: "Создать пользователя",
           modalTitle: "Создание пользователя",
           formSetting: {
+            validate: schema,
             fields: FIELDS,
             onSubmit: (user: IUser) => postUser(user),
           },

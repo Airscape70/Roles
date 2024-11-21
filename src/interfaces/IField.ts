@@ -9,6 +9,5 @@ export interface IField {
   label: string;
   type?: string;
   options?: IOption[];
-  pattern?: RegExp;
-  errorMessage?: string;
+  placeholder?: string
 }

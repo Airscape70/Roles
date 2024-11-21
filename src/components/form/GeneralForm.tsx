@@ -8,15 +8,24 @@ import { ResetButton } from "../common/ResetButton";
 import { SubmitButton } from "../common/SubmitButton";
 import { IGeneralForm } from "../../interfaces/IGeneralForm";
 import { CheckboxFieldInput } from "./fields/CheckboxFieldInput";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 
 export const GeneralForm: FC<IGeneralForm> = ({
   onSubmit,
+  validate,
   fields,
   defaultValues,
   submitBtnTitle,
   handleClose,
 }) => {
-  const methods = useForm({ mode: "onChange", defaultValues: defaultValues });
+
+  const methods = useForm({
+    mode: "onSubmit",
+    defaultValues: defaultValues,
+    resolver: yupResolver(validate),
+  });
+
   const handleSubmit = (data: any) => {
     onSubmit(data);
     handleClose!();
@@ -26,6 +35,7 @@ export const GeneralForm: FC<IGeneralForm> = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)} style={formStyle}>
         {fields.map((field) => {
+
           switch (field.type) {
             case "text":
               return <TextFieldInput key={field.name} {...field} />;

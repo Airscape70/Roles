@@ -4,7 +4,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { IField } from "../../../interfaces/IField";
 
 export const SelectFieldInput: FC<IField> = ({ name, options, label }) => {
-  const { control } = useFormContext();
+  const { control, formState: {errors} } = useFormContext();
 
   return (
     <Controller
@@ -21,6 +21,7 @@ export const SelectFieldInput: FC<IField> = ({ name, options, label }) => {
             label={label}
             value={field.value !== undefined ? field.value : ""}
             onChange={(e) => field.onChange(e)}
+            error={!!errors[name]?.message}
           >
             {options?.map((option, index) => (
               <MenuItem
