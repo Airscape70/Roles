@@ -23,7 +23,7 @@ export default function HomePage() {
 
   return (
     <Container maxWidth="xl" sx={{ typography: "body1" }}>
-      <TabContext value={value}>
+      <TabContext value={value} >
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange}>
             <Tab label="Пользователи" value="Пользователи" />

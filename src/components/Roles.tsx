@@ -31,17 +31,17 @@ const schema = yup
       .string()
       .required("Введите описание роли")
       .min(4, "Минимум 4 буквы")
-      .matches(/^[а-яА-Я]*$/, "Только буквы кириллицы"),
+      .matches(/^[а-яА-Я]\s*/, "Только буквы кириллицы не более 50 символов"),
     permissions: yup.array().required(),
   })
   .required();
 
 const Roles = () => {
-  const rolesData = useGetRoles();
   const usersData = useGetUsers();
   const permissions = useGetPermissions();
-  const deleteRole = useDeleteRole();
+  const rolesData = useGetRoles();
   const postRole = usePostRole();
+  const deleteRole = useDeleteRole();
   const updateRole = useUpdateRole();
 
   PERMISSIONS_FIELD.options = permissions?.map((permission) => {
@@ -53,10 +53,13 @@ const Roles = () => {
   });
 
   const ROLES = ROLE_FIELDS.concat(PERMISSIONS_FIELD);
-  
-  const handleDeleteUser = useCallback((roleId: string) => {
-    deleteRole(roleId);
-  }, [deleteRole]);
+
+  const handleDeleteUser = useCallback(
+    (roleId: string) => {
+      deleteRole(roleId);
+    },
+    [deleteRole]
+  );
 
   const columns = useMemo<MRT_ColumnDef<IRole>[]>(
     () => [
@@ -86,7 +89,8 @@ const Roles = () => {
         header: "Пользователи",
         size: 400,
         Cell: ({ row }) => {
-          const res = usersData?.filter((user) => user.userRole === row.original.roleName)
+          const res = usersData
+            ?.filter((user) => user.userRole === row.original.roleName)
             .map((user) => user.userName);
 
           return res?.join(", ");
@@ -101,7 +105,12 @@ const Roles = () => {
     data: rolesData ?? [],
     enableSelectAll: false,
     positionGlobalFilter: "left",
-    initialState: { showGlobalFilter: true, columnVisibility: { id: false } },
+    autoResetAll: false,
+    initialState: {
+      showGlobalFilter: true,
+      columnVisibility: { id: false },
+      pagination: { pageSize: 5, pageIndex: 0 },
+    },
     enableToolbarInternalActions: false,
     createDisplayMode: "row",
     editDisplayMode: "row",

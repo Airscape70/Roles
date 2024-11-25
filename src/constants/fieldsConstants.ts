@@ -23,7 +23,7 @@ export const USER_FIELD: IField = {
 
 export const AVAILABILITY_FIELD: IField = {
     name: "availability",
-    label: "Доступость",
+    label: "Доступность",
     type: "checkbox",
 };
 

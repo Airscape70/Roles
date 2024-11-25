@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import HomePage from "./pages/HomePage";
 import Header from "./components/header/Header";
 
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -14,8 +15,8 @@ export const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <Header />
-      <HomePage />
+        <Header />
+        <HomePage />
     </QueryClientProvider>
   );
 }

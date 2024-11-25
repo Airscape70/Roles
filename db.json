@@ -31,10 +31,58 @@
       "availability": false
     },
     {
-      "id": "fbe3",
-      "userName": "Истомин В.Р.",
+      "id": "2fed",
+      "userName": "Иванов И.И.",
+      "userRole": "Разработчик",
+      "availability": false
+    },
+    {
+      "id": "3fed",
+      "userName": "Петров П.П.",
+      "userRole": "Менеджер",
+      "availability": "true"
+    },
+    {
+      "id": "4fed",
+      "userName": "Сидоров С.С.",
+      "userRole": "Разработчик",
+      "availability": false
+    },
+    {
+      "id": "5fed",
+      "userName": "Васильев В.В.",
       "userRole": "Администратор",
       "availability": "true"
+    },
+    {
+      "id": "6fed",
+      "userName": "Николаев Н.Н.",
+      "userRole": "Менеджер",
+      "availability": "true"
+    },
+    {
+      "id": "7fed",
+      "userName": "Михайлов М.М.",
+      "userRole": "Менеджер",
+      "availability": "true"
+    },
+    {
+      "id": "8fed",
+      "userName": "Смирнов С.С.",
+      "userRole": "Менеджер",
+      "availability": false
+    },
+    {
+      "id": "9fed",
+      "userName": "Захаров З.З.",
+      "userRole": "Менеджер",
+      "availability": "true"
+    },
+    {
+      "id": "10fed",
+      "userName": "Соловьев С.С.",
+      "userRole": "Менеджер",
+      "availability": false
     }
   ],
   "permissions": [
@@ -88,7 +136,7 @@
     {
       "id": "be67",
       "roleName": "Разработчик",
-      "roleDescription": "разраб",
+      "roleDescription": "арпар",
       "permissions": [
         "permission4",
         "permission5",
@@ -117,7 +165,7 @@
     {
       "id": "3e60",
       "roleName": "Администратор",
-      "roleDescription": "вчпавапавп",
+      "roleDescription": "админка",
       "permissions": [
         "permission1",
         "permission2",

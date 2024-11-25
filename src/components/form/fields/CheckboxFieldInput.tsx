@@ -13,7 +13,7 @@ export const CheckboxFieldInput: React.FC<IField> = ({ name, label }) => {
       name={name}
       render={({ field }) => (
         <>
-          <Typography variant="h6" component={"span"}>
+          <Typography variant="button" textAlign="center">
             {label}
             <Checkbox
               {...rest}

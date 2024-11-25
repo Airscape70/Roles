@@ -15,8 +15,8 @@ const BasicModal: React.FC<IBasicModal> = ({
   formSetting,
 }) => {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = React.useCallback(() => setOpen(true), [setOpen]);
+  const handleClose = React.useCallback(() => setOpen(false), [setOpen]);
 
   return (
     <Box>
