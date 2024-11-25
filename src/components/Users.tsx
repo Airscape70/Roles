@@ -15,27 +15,13 @@ import { usePostUser } from "../hooks/usePostUser";
 import { useUpdateUser } from "../hooks/useUpdateUser";
 import BasicModal from "./modal/BasicModal";
 import TableHeader from "./common/TableHeader";
-import * as yup from "yup";
 import {
   AVAILABILITY_FIELD,
   SELECT_ROLE_FIELD,
   USER_FIELD,
 } from "../constants/fieldsConstants";
-
-const schema = yup
-  .object()
-  .shape({
-    userName: yup
-      .string()
-      .required("Введите инициалы пользователя")
-      .min(4, "Минимум 4 буквы")
-      .matches(
-        /^[А-ЯЁа-яё]+ [А-ЯЁ]\.[А-ЯЁ]\.$/,
-        "Некорректно указаны инициалы"
-      ),
-    userRole: yup.string().required("Выберите роль"),
-  })
-  .required();
+import { getDefaultMRTOptions } from "../helpers/getDefaultMRTOptions";
+import { USER_SCHEMA } from "../constants/schemesConstants";
 
 const Users = () => {
   const usersData = useGetUsers();
@@ -43,6 +29,13 @@ const Users = () => {
   const deleteUser = useDeleteUser();
   const postUser = usePostUser();
   const updateUser = useUpdateUser();
+
+  const handleDeleteUser = useCallback(
+    (userId: string) => {
+      deleteUser(userId);
+    },
+    [deleteUser]
+  );
 
   SELECT_ROLE_FIELD.options = rolesData?.map((role) => {
     return {
@@ -52,15 +45,8 @@ const Users = () => {
     };
   });
 
-  const handleDeleteUser = useCallback(
-    (userId: string) => {
-      deleteUser(userId);
-    },
-    [deleteUser]
-  );
-
-  const FIELDS = [USER_FIELD, SELECT_ROLE_FIELD, AVAILABILITY_FIELD];
-
+  const USERS = [USER_FIELD, SELECT_ROLE_FIELD, AVAILABILITY_FIELD];
+  const defaultMRTOptions = getDefaultMRTOptions<IUser>();
   const columns = useMemo<MRT_ColumnDef<IUser>[]>(
     () => [
       {
@@ -93,63 +79,26 @@ const Users = () => {
   );
 
   const table = useMaterialReactTable({
+    ...defaultMRTOptions,
     columns,
     data: usersData ?? [],
-    enableSelectAll: false,
-    positionGlobalFilter: "left",
-    autoResetAll: false,
-    initialState: {
-      showGlobalFilter: true,
-      columnVisibility: { id: false },
-      pagination: { pageSize: 5, pageIndex: 0 },
-    },
-    enableToolbarInternalActions: false,
-    createDisplayMode: "row",
     editDisplayMode: "modal",
-    positionActionsColumn: "last",
-    enableEditing: true,
-    enableSorting: false,
-    enableColumnActions: false,
-    muiPaginationProps: { rowsPerPageOptions: [5, 10, 20] },
-    getRowId: (row) => row.id,
-    defaultColumn: {
-      minSize: 20,
-      maxSize: 400,
-      size: 300,
-    },
-    displayColumnDefOptions: {
-      "mrt-row-actions": {
-        header: "",
-        maxSize: 20,
-      },
-    },
-    muiSearchTextFieldProps: {
-      placeholder: "Поиск",
-      sx: { minWidth: "300px" },
-      variant: "outlined",
-    },
-
-    muiTableContainerProps: {
-      sx: {
-        minHeight: "400px",
-      },
-    },
-
+    
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex" }}>
         <BasicModal
           modalTitle="Изменение данных"
           BtnIcon={EditIcon}
           formSetting={{
-            validate: schema,
-            fields: FIELDS,
+            validate: USER_SCHEMA,
+            fields: USERS,
             defaultValues: row.original,
             onSubmit: updateUser,
             submitBtnTitle: "Изменить",
           }}
         />
-        <Tooltip title="Удалить" onClick={() => handleDeleteUser(row.id)}>
-          <IconButton color="error">
+        <Tooltip title="Удалить">
+          <IconButton color="error" onClick={() => handleDeleteUser(row.id)}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -165,8 +114,8 @@ const Users = () => {
           btnTitle: "Создать пользователя",
           modalTitle: "Создание пользователя",
           formSetting: {
-            validate: schema,
-            fields: FIELDS,
+            validate: USER_SCHEMA,
+            fields: USERS,
             onSubmit: (user: IUser) => postUser(user),
           },
         }}

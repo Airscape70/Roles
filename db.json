@@ -67,12 +67,6 @@
       "availability": "true"
     },
     {
-      "id": "8fed",
-      "userName": "Смирнов С.С.",
-      "userRole": "Менеджер",
-      "availability": false
-    },
-    {
       "id": "9fed",
       "userName": "Захаров З.З.",
       "userRole": "Менеджер",

@@ -18,23 +18,8 @@ import * as yup from "yup";
 import { PERMISSIONS_FIELD, ROLE_FIELDS } from "../constants/fieldsConstants";
 import { useGetUsers } from "../hooks/useGetUsers";
 import { IRole } from "../interfaces/IRole";
-
-const schema = yup
-  .object()
-  .shape({
-    roleName: yup
-      .string()
-      .required("Введите название роли")
-      .min(4, "Минимум 4 буквы")
-      .matches(/^[а-яА-Я]*$/, "Только буквы кириллицы"),
-    roleDescription: yup
-      .string()
-      .required("Введите описание роли")
-      .min(4, "Минимум 4 буквы")
-      .matches(/^[а-яА-Я]\s*/, "Только буквы кириллицы не более 50 символов"),
-    permissions: yup.array().required(),
-  })
-  .required();
+import { getDefaultMRTOptions } from "../helpers/getDefaultMRTOptions";
+import { ROLES_SCHEMA } from "../constants/schemesConstants";
 
 const Roles = () => {
   const usersData = useGetUsers();
@@ -43,6 +28,13 @@ const Roles = () => {
   const postRole = usePostRole();
   const deleteRole = useDeleteRole();
   const updateRole = useUpdateRole();
+
+  const handleDeleteUser = useCallback(
+    (roleId: string) => {
+      deleteRole(roleId);
+    },
+    [deleteRole]
+  );
 
   PERMISSIONS_FIELD.options = permissions?.map((permission) => {
     return {
@@ -53,14 +45,7 @@ const Roles = () => {
   });
 
   const ROLES = ROLE_FIELDS.concat(PERMISSIONS_FIELD);
-
-  const handleDeleteUser = useCallback(
-    (roleId: string) => {
-      deleteRole(roleId);
-    },
-    [deleteRole]
-  );
-
+  const defaultMRTOptions = getDefaultMRTOptions<IRole>();
   const columns = useMemo<MRT_ColumnDef<IRole>[]>(
     () => [
       {
@@ -101,54 +86,18 @@ const Roles = () => {
   );
 
   const table = useMaterialReactTable({
+    ...defaultMRTOptions,
     columns,
     data: rolesData ?? [],
-    enableSelectAll: false,
-    positionGlobalFilter: "left",
-    autoResetAll: false,
-    initialState: {
-      showGlobalFilter: true,
-      columnVisibility: { id: false },
-      pagination: { pageSize: 5, pageIndex: 0 },
-    },
-    enableToolbarInternalActions: false,
-    createDisplayMode: "row",
     editDisplayMode: "row",
-    positionActionsColumn: "last",
-    enableEditing: true,
-    enableSorting: false,
-    enableColumnActions: false,
-    muiPaginationProps: { rowsPerPageOptions: [5, 10, 20] },
-    getRowId: (row) => row.id,
-    defaultColumn: {
-      minSize: 20,
-      maxSize: 400,
-      size: 300,
-    },
-    displayColumnDefOptions: {
-      "mrt-row-actions": {
-        header: "",
-        maxSize: 20,
-      },
-    },
-    muiSearchTextFieldProps: {
-      placeholder: "Поиск",
-      sx: { minWidth: "300px" },
-      variant: "outlined",
-    },
-
-    muiTableContainerProps: {
-      sx: {
-        minHeight: "400px",
-      },
-    },
+    
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex" }}>
         <BasicModal
           modalTitle="Изменение данных"
           BtnIcon={EditIcon}
           formSetting={{
-            validate: schema,
+            validate: ROLES_SCHEMA,
             fields: ROLES,
             defaultValues: row.original,
             onSubmit: updateRole,
@@ -172,7 +121,7 @@ const Roles = () => {
           btnTitle: "Создать роль",
           modalTitle: "Создание роли",
           formSetting: {
-            validate: schema,
+            validate: ROLES_SCHEMA,
             fields: ROLES,
             onSubmit: (role: IRole) => postRole(role),
           },

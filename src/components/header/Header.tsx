@@ -3,7 +3,9 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { NAV_ITEMS, PROJECT_NAME } from "../../constants/headerConstants";
+
+export const NAV_ITEMS: string [] = ["MODULE 1", "MODULE 2", "MODULE 3"];
+export const PROJECT_NAME: string = "Project name";
 
 const Header = () => {
   return (
