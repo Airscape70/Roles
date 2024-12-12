@@ -7,6 +7,7 @@ import {
 import { Box, IconButton, Tooltip } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { useGetRoles } from "../hooks/useGetRoles";
 import { usePostRole } from "../hooks/usePostRole";
 import { useDeleteRole } from "../hooks/useDeleteRole";
@@ -14,7 +15,6 @@ import { useGetPermissions } from "../hooks/useGetPermissions";
 import { useUpdateRole } from "../hooks/useUpdateRole";
 import BasicModal from "./modal/BasicModal";
 import TableHeader from "./common/TableHeader";
-import * as yup from "yup";
 import { PERMISSIONS_FIELD, ROLE_FIELDS } from "../constants/fieldsConstants";
 import { useGetUsers } from "../hooks/useGetUsers";
 import { IRole } from "../interfaces/IRole";
@@ -22,9 +22,9 @@ import { getDefaultMRTOptions } from "../helpers/getDefaultMRTOptions";
 import { ROLES_SCHEMA } from "../constants/schemesConstants";
 
 const Roles = () => {
-  const usersData = useGetUsers();
+  const {rolesData, isLoading } = useGetRoles();
+  const {usersData }= useGetUsers();
   const permissions = useGetPermissions();
-  const rolesData = useGetRoles();
   const postRole = usePostRole();
   const deleteRole = useDeleteRole();
   const updateRole = useUpdateRole();
@@ -35,6 +35,16 @@ const Roles = () => {
     },
     [deleteRole]
   );
+  const handleCopy = useCallback((row: string) => {
+    navigator.clipboard
+      .writeText(`${row}`)
+      .then(() => {
+      alert('Скопировано!')
+      })
+      .catch((err) => {
+        console.log("Something went wrong", err);
+      });
+  }, []);
 
   PERMISSIONS_FIELD.options = permissions?.map((permission) => {
     return {
@@ -61,7 +71,7 @@ const Roles = () => {
       {
         accessorKey: "roleDescription",
         header: "Описание",
-        size: 300,
+        size: 200,
       },
       {
         accessorKey: "permissions",
@@ -89,8 +99,9 @@ const Roles = () => {
     ...defaultMRTOptions,
     columns,
     data: rolesData ?? [],
-    editDisplayMode: "row",
-    
+    state: {
+      isLoading: isLoading
+    },
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex" }}>
         <BasicModal
@@ -107,6 +118,11 @@ const Roles = () => {
         <Tooltip title="Удалить">
           <IconButton color="error" onClick={() => handleDeleteUser(row.id)}>
             <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Скопировать">
+          <IconButton color="default" onClick={() => handleCopy(row.original.roleName)}>
+            <ContentCopyIcon />
           </IconButton>
         </Tooltip>
       </Box>

@@ -24,8 +24,8 @@ import { getDefaultMRTOptions } from "../helpers/getDefaultMRTOptions";
 import { USER_SCHEMA } from "../constants/schemesConstants";
 
 const Users = () => {
-  const usersData = useGetUsers();
-  const rolesData = useGetRoles();
+  const {usersData, isLoading} = useGetUsers();
+  const {rolesData} = useGetRoles();
   const deleteUser = useDeleteUser();
   const postUser = usePostUser();
   const updateUser = useUpdateUser();
@@ -82,8 +82,9 @@ const Users = () => {
     ...defaultMRTOptions,
     columns,
     data: usersData ?? [],
-    editDisplayMode: "modal",
-    
+    state: {
+      isLoading: isLoading
+    },
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex" }}>
         <BasicModal

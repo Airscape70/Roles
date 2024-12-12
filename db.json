@@ -10,7 +10,7 @@
       "id": "1fed",
       "userName": "Матвеев К.К.",
       "userRole": "Менеджер",
-      "availability": "true"
+      "availability": false
     },
     {
       "id": "4394",
@@ -22,7 +22,7 @@
       "id": "f939",
       "userName": "Морозов Д.Е.",
       "userRole": "Разработчик",
-      "availability": false
+      "availability": "true"
     },
     {
       "id": "d584",
@@ -71,12 +71,6 @@
       "userName": "Захаров З.З.",
       "userRole": "Менеджер",
       "availability": "true"
-    },
-    {
-      "id": "10fed",
-      "userName": "Соловьев С.С.",
-      "userRole": "Менеджер",
-      "availability": false
     }
   ],
   "permissions": [

@@ -3,10 +3,10 @@ import { getRoles } from "../api/api";
 import { IRole } from "../interfaces/IRole";
 
 export const useGetRoles = () => {
-  const { data } = useQuery<IRole[]>({
+  const { data: rolesData, isLoading } = useQuery<IRole[]>({
     queryKey: ["roles"],
     queryFn: getRoles,
   });
 
-  return data;
+  return {rolesData, isLoading};
 };
